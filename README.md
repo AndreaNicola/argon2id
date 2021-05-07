@@ -6,14 +6,21 @@
 go get -u github.com/AndreaNicola/argon2id
 ```
 
+Import
+
+```go
+import _ "github.com/AndreaNicola/argon2id"
+```
+
 ## Generate Hash
 
 ```go
-hash, hashErr := argon2id.Hash(plainText)
+a2id := argon2id.NewArgon2ID()
+hash, hashErr := a2id.Hash(plainText)
 ```
 
 ## Verify Hash
 
 ```go
-res, verErr := argon2id.Verify(plainText, hash)
+res, verErr := a2id.Verify(plainText, hash)
 ```
