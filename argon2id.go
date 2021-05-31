@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"crypto/subtle"
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"golang.org/x/crypto/argon2"
 	"strings"
@@ -52,6 +53,11 @@ func (a Argon2ID) Hash(plain string) (string, error) {
 }
 
 func (a Argon2ID) Verify(plain, hash string) (bool, error) {
+
+	if hash == "" {
+		return false, errors.New("hash is empty")
+	}
+
 	hashParts := strings.Split(hash, "$")
 
 	_, err := fmt.Sscanf(hashParts[3], "m=%d,t=%d,p=%d", &a.memory, &a.time, &a.threads)
